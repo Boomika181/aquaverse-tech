@@ -1,0 +1,64 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // --- Hardened Global Helpers ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isAdmin() {
+      return isSignedIn() &&
+             'email' in request.auth.token &&
+             request.auth.token.email == 'boomikaram35@gmail.com';
+    }
+
+    // --- Users Collection Rules ---
+    match /users/{userId} {
+      allow get: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow list: if isAdmin();
+      allow create, update: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    // --- Predictions Collection Rules ---
+    match /predictions/{predictionId} {
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow get, list: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow update, delete: if isAdmin();
+    }
+
+    // --- Contact Messages Collection Rules ---
+    match /contactMessages/{messageId} {
+      allow create: if true;
+      allow get, list: if (isSignedIn() && resource.data.userId == request.auth.uid) || isAdmin();
+      allow update, delete: if isAdmin();
+    }
+
+    // --- Uploaded Reports Collection Rules ---
+    match /uploadedReports/{reportId} {
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow get, list: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow update, delete: if isAdmin();
+    }
+
+    // --- Activity Logs Collection Rules ---
+    match /activityLogs/{logId} {
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow get, list: if isAdmin();
+      allow update, delete: if false; // Logs are immutable
+    }
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "The user profile document containing roles and basic account information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "citizen"] },
+        "createdAt": { "type": "object" },
+        "phoneNumber": { "type": "string" },
+        "location": { "type": "string" }
+      },
+      "required": ["uid", "email", "displayName", "role"]
+    },
+    "Prediction": {
+      "title": "Water Prediction",
+      "description": "A saved water quality prediction record",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "timestamp": { "type": "object" },
+        "inputs": {
+          "type": "object",
+          "properties": {
+            "ph": { "type": "number" },
+            "hardness": { "type": "number" },
+            "solids": { "type": "number" },
+            "chloramines": { "type": "number" },
+            "sulfate": { "type": "number" },
+            "conductivity": { "type": "number" },
+            "organicCarbon": { "type": "number" },
+            "trihalomethanes": { "type": "number" },
+            "turbidity": { "type": "number" }
+          },
+          "required": ["ph", "hardness", "solids", "chloramines", "sulfate", "conductivity", "organicCarbon", "trihalomethanes", "turbidity"]
+        },
+        "result": { "type": "string", "enum": ["safe", "unsafe"] },
+        "confidence": { "type": "number" },
+        "advisoryText": { "type": "string" }
+      },
+      "required": ["userId", "userEmail", "inputs", "result", "confidence"]
+    },
+    "ContactMessage": {
+      "title": "Contact Message",
+      "description": "Form submission from the contact/report page",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "subject": { "type": "string" },
+        "category": { "type": "string" },
+        "message": { "type": "string" },
+        "timestamp": { "type": "object" },
+        "resolved": { "type": "boolean" }
+      },
+      "required": ["name", "email", "subject", "category", "message", "resolved"]
+    },
+    "UploadedReport": {
+      "title": "Uploaded Report",
+      "description": "Community water hazard report with optional visual attachment",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "location": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "fileUrl": { "type": "string" },
+        "timestamp": { "type": "object" },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "resolved"] }
+      },
+      "required": ["userId", "userEmail", "title", "description", "location", "status"]
+    },
+    "ActivityLog": {
+      "title": "Activity Log",
+      "description": "Immutable system action and security event logging",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "action": { "type": "string" },
+        "timestamp": { "type": "object" }
+      },
+      "required": ["userId", "userEmail", "action"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Collection of user profiles matching user UIDs"
+    },
+    "/predictions/{predictionId}": {
+      "schema": "Prediction",
+      "description": "Water quality logs saved by citizens"
+    },
+    "/contactMessages/{messageId}": {
+      "schema": "ContactMessage",
+      "description": "Form submissions made by any website visitor"
+    },
+    "/uploadedReports/{reportId}": {
+      "schema": "UploadedReport",
+      "description": "Locally submitted water hazard issues and imagery"
+    },
+    "/activityLogs/{logId}": {
+      "schema": "ActivityLog",
+      "description": "Auditable log of operations performed in the app"
+    }
+  }
+}

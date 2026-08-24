@@ -1,0 +1,8 @@
+{
+  "name": "AquaVerse AI",
+  "description": "AquaVerse AI is an advanced water quality prediction, monitoring, and community reporting application powered by AI and Firebase.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

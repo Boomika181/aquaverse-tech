@@ -1,0 +1,542 @@
+{
+  "modelName": "Random Forest Hydrologic Streamflow Forecaster",
+  "modelVersion": "rf-streamflow-v1.0.0",
+  "algorithm": "RandomForestRegressor",
+  "trainedAt": "2026-08-24T14:41:48.267510",
+  "dataSource": "USGS NWIS Site 09058000 (COLORADO RIVER NEAR KREMMLING, CO)",
+  "targetVariable": "Discharge / Streamflow (Parameter 00060)",
+  "unit": "cubic feet per second (cfs)",
+  "dataPeriod": {
+    "startDate": "2025-08-24",
+    "endDate": "2026-08-23"
+  },
+  "testPeriod": {
+    "startDate": "2026-07-02",
+    "endDate": "2026-08-23"
+  },
+  "totalObservations": 350,
+  "split": {
+    "trainSamples": 244,
+    "validationSamples": 53,
+    "testSamples": 53
+  },
+  "hyperparameters": {
+    "n_estimators": 100,
+    "max_depth": 8,
+    "min_samples_split": 4,
+    "min_samples_leaf": 2,
+    "random_state": 42
+  },
+  "features": [
+    "day_of_week",
+    "month",
+    "is_weekend",
+    "streamflow_lag_1",
+    "streamflow_lag_2",
+    "streamflow_lag_7",
+    "streamflow_lag_14",
+    "rolling_mean_7",
+    "rolling_std_7",
+    "rolling_mean_14"
+  ],
+  "featureImportances": [
+    {
+      "feature": "streamflow_lag_1",
+      "importancePct": 94.45
+    },
+    {
+      "feature": "streamflow_lag_2",
+      "importancePct": 1.47
+    },
+    {
+      "feature": "streamflow_lag_7",
+      "importancePct": 1.16
+    },
+    {
+      "feature": "rolling_mean_7",
+      "importancePct": 0.89
+    },
+    {
+      "feature": "rolling_std_7",
+      "importancePct": 0.78
+    },
+    {
+      "feature": "streamflow_lag_14",
+      "importancePct": 0.59
+    },
+    {
+      "feature": "rolling_mean_14",
+      "importancePct": 0.4
+    },
+    {
+      "feature": "day_of_week",
+      "importancePct": 0.12
+    },
+    {
+      "feature": "month",
+      "importancePct": 0.12
+    },
+    {
+      "feature": "is_weekend",
+      "importancePct": 0.02
+    }
+  ],
+  "testEvaluation": {
+    "baseline": {
+      "name": "7-Day Moving Average Baseline",
+      "mae": 76.37,
+      "rmse": 104.16,
+      "mape": 8.59
+    },
+    "randomForest": {
+      "name": "Random Forest Regressor",
+      "mae": 54.36,
+      "rmse": 75.14,
+      "mape": 5.92
+    },
+    "improvementPct": 28.82
+  },
+  "modelArtifactPath": "server/ml/streamflow_rf_model.joblib",
+  "testPredictions": [
+    {
+      "date": "2026-07-02",
+      "actual_streamflow": 1010.0,
+      "predicted_streamflow": 716.9,
+      "baseline_streamflow": 819.9
+    },
+    {
+      "date": "2026-07-03",
+      "actual_streamflow": 1030.0,
+      "predicted_streamflow": 984.4,
+      "baseline_streamflow": 840.4
+    },
+    {
+      "date": "2026-07-04",
+      "actual_streamflow": 1090.0,
+      "predicted_streamflow": 1022.7,
+      "baseline_streamflow": 864.4
+    },
+    {
+      "date": "2026-07-05",
+      "actual_streamflow": 1160.0,
+      "predicted_streamflow": 1062.0,
+      "baseline_streamflow": 904.4
+    },
+    {
+      "date": "2026-07-06",
+      "actual_streamflow": 1170.0,
+      "predicted_streamflow": 1133.9,
+      "baseline_streamflow": 957.3
+    },
+    {
+      "date": "2026-07-07",
+      "actual_streamflow": 976.0,
+      "predicted_streamflow": 1142.0,
+      "baseline_streamflow": 1013.3
+    },
+    {
+      "date": "2026-07-08",
+      "actual_streamflow": 1030.0,
+      "predicted_streamflow": 948.8,
+      "baseline_streamflow": 1036.9
+    },
+    {
+      "date": "2026-07-09",
+      "actual_streamflow": 1100.0,
+      "predicted_streamflow": 1035.8,
+      "baseline_streamflow": 1066.6
+    },
+    {
+      "date": "2026-07-10",
+      "actual_streamflow": 1120.0,
+      "predicted_streamflow": 1086.5,
+      "baseline_streamflow": 1079.4
+    },
+    {
+      "date": "2026-07-11",
+      "actual_streamflow": 1140.0,
+      "predicted_streamflow": 1122.0,
+      "baseline_streamflow": 1092.3
+    },
+    {
+      "date": "2026-07-12",
+      "actual_streamflow": 1140.0,
+      "predicted_streamflow": 1128.8,
+      "baseline_streamflow": 1099.4
+    },
+    {
+      "date": "2026-07-13",
+      "actual_streamflow": 1200.0,
+      "predicted_streamflow": 1123.8,
+      "baseline_streamflow": 1096.6
+    },
+    {
+      "date": "2026-07-14",
+      "actual_streamflow": 1210.0,
+      "predicted_streamflow": 1115.0,
+      "baseline_streamflow": 1100.9
+    },
+    {
+      "date": "2026-07-15",
+      "actual_streamflow": 1150.0,
+      "predicted_streamflow": 1113.8,
+      "baseline_streamflow": 1134.3
+    },
+    {
+      "date": "2026-07-16",
+      "actual_streamflow": 1130.0,
+      "predicted_streamflow": 1114.5,
+      "baseline_streamflow": 1151.4
+    },
+    {
+      "date": "2026-07-17",
+      "actual_streamflow": 1080.0,
+      "predicted_streamflow": 1092.3,
+      "baseline_streamflow": 1155.7
+    },
+    {
+      "date": "2026-07-18",
+      "actual_streamflow": 1050.0,
+      "predicted_streamflow": 1054.3,
+      "baseline_streamflow": 1150.0
+    },
+    {
+      "date": "2026-07-19",
+      "actual_streamflow": 1010.0,
+      "predicted_streamflow": 1060.5,
+      "baseline_streamflow": 1137.1
+    },
+    {
+      "date": "2026-07-20",
+      "actual_streamflow": 1060.0,
+      "predicted_streamflow": 1023.2,
+      "baseline_streamflow": 1118.6
+    },
+    {
+      "date": "2026-07-21",
+      "actual_streamflow": 1090.0,
+      "predicted_streamflow": 1035.9,
+      "baseline_streamflow": 1098.6
+    },
+    {
+      "date": "2026-07-22",
+      "actual_streamflow": 1070.0,
+      "predicted_streamflow": 1066.3,
+      "baseline_streamflow": 1081.4
+    },
+    {
+      "date": "2026-07-23",
+      "actual_streamflow": 1060.0,
+      "predicted_streamflow": 1034.7,
+      "baseline_streamflow": 1070.0
+    },
+    {
+      "date": "2026-07-24",
+      "actual_streamflow": 1030.0,
+      "predicted_streamflow": 1022.0,
+      "baseline_streamflow": 1060.0
+    },
+    {
+      "date": "2026-07-25",
+      "actual_streamflow": 938.0,
+      "predicted_streamflow": 1018.2,
+      "baseline_streamflow": 1052.9
+    },
+    {
+      "date": "2026-07-26",
+      "actual_streamflow": 916.0,
+      "predicted_streamflow": 952.9,
+      "baseline_streamflow": 1036.9
+    },
+    {
+      "date": "2026-07-27",
+      "actual_streamflow": 933.0,
+      "predicted_streamflow": 935.0,
+      "baseline_streamflow": 1023.4
+    },
+    {
+      "date": "2026-07-28",
+      "actual_streamflow": 963.0,
+      "predicted_streamflow": 942.4,
+      "baseline_streamflow": 1005.3
+    },
+    {
+      "date": "2026-07-29",
+      "actual_streamflow": 1010.0,
+      "predicted_streamflow": 944.6,
+      "baseline_streamflow": 987.1
+    },
+    {
+      "date": "2026-07-30",
+      "actual_streamflow": 1070.0,
+      "predicted_streamflow": 1008.9,
+      "baseline_streamflow": 978.6
+    },
+    {
+      "date": "2026-07-31",
+      "actual_streamflow": 952.0,
+      "predicted_streamflow": 1061.8,
+      "baseline_streamflow": 980.0
+    },
+    {
+      "date": "2026-08-01",
+      "actual_streamflow": 887.0,
+      "predicted_streamflow": 966.2,
+      "baseline_streamflow": 968.9
+    },
+    {
+      "date": "2026-08-02",
+      "actual_streamflow": 870.0,
+      "predicted_streamflow": 765.9,
+      "baseline_streamflow": 961.6
+    },
+    {
+      "date": "2026-08-03",
+      "actual_streamflow": 935.0,
+      "predicted_streamflow": 737.8,
+      "baseline_streamflow": 955.0
+    },
+    {
+      "date": "2026-08-04",
+      "actual_streamflow": 963.0,
+      "predicted_streamflow": 949.6,
+      "baseline_streamflow": 955.3
+    },
+    {
+      "date": "2026-08-05",
+      "actual_streamflow": 968.0,
+      "predicted_streamflow": 951.7,
+      "baseline_streamflow": 955.3
+    },
+    {
+      "date": "2026-08-06",
+      "actual_streamflow": 934.0,
+      "predicted_streamflow": 955.8,
+      "baseline_streamflow": 949.3
+    },
+    {
+      "date": "2026-08-07",
+      "actual_streamflow": 917.0,
+      "predicted_streamflow": 963.9,
+      "baseline_streamflow": 929.9
+    },
+    {
+      "date": "2026-08-08",
+      "actual_streamflow": 836.0,
+      "predicted_streamflow": 949.5,
+      "baseline_streamflow": 924.9
+    },
+    {
+      "date": "2026-08-09",
+      "actual_streamflow": 772.0,
+      "predicted_streamflow": 718.0,
+      "baseline_streamflow": 917.6
+    },
+    {
+      "date": "2026-08-10",
+      "actual_streamflow": 692.0,
+      "predicted_streamflow": 718.6,
+      "baseline_streamflow": 903.6
+    },
+    {
+      "date": "2026-08-11",
+      "actual_streamflow": 645.0,
+      "predicted_streamflow": 692.9,
+      "baseline_streamflow": 868.9
+    },
+    {
+      "date": "2026-08-12",
+      "actual_streamflow": 602.0,
+      "predicted_streamflow": 673.5,
+      "baseline_streamflow": 823.4
+    },
+    {
+      "date": "2026-08-13",
+      "actual_streamflow": 622.0,
+      "predicted_streamflow": 714.9,
+      "baseline_streamflow": 771.1
+    },
+    {
+      "date": "2026-08-14",
+      "actual_streamflow": 725.0,
+      "predicted_streamflow": 721.2,
+      "baseline_streamflow": 726.6
+    },
+    {
+      "date": "2026-08-15",
+      "actual_streamflow": 756.0,
+      "predicted_streamflow": 767.7,
+      "baseline_streamflow": 699.1
+    },
+    {
+      "date": "2026-08-16",
+      "actual_streamflow": 771.0,
+      "predicted_streamflow": 727.2,
+      "baseline_streamflow": 687.7
+    },
+    {
+      "date": "2026-08-17",
+      "actual_streamflow": 708.0,
+      "predicted_streamflow": 712.5,
+      "baseline_streamflow": 687.6
+    },
+    {
+      "date": "2026-08-18",
+      "actual_streamflow": 713.0,
+      "predicted_streamflow": 686.3,
+      "baseline_streamflow": 689.9
+    },
+    {
+      "date": "2026-08-19",
+      "actual_streamflow": 742.0,
+      "predicted_streamflow": 687.1,
+      "baseline_streamflow": 699.6
+    },
+    {
+      "date": "2026-08-20",
+      "actual_streamflow": 709.0,
+      "predicted_streamflow": 684.8,
+      "baseline_streamflow": 719.6
+    },
+    {
+      "date": "2026-08-21",
+      "actual_streamflow": 697.0,
+      "predicted_streamflow": 681.6,
+      "baseline_streamflow": 732.0
+    },
+    {
+      "date": "2026-08-22",
+      "actual_streamflow": 715.0,
+      "predicted_streamflow": 663.7,
+      "baseline_streamflow": 728.0
+    },
+    {
+      "date": "2026-08-23",
+      "actual_streamflow": 739.0,
+      "predicted_streamflow": 687.6,
+      "baseline_streamflow": 722.1
+    }
+  ],
+  "recentObservations": [
+    {
+      "date": "2026-07-25",
+      "streamflow": 938.0
+    },
+    {
+      "date": "2026-07-26",
+      "streamflow": 916.0
+    },
+    {
+      "date": "2026-07-27",
+      "streamflow": 933.0
+    },
+    {
+      "date": "2026-07-28",
+      "streamflow": 963.0
+    },
+    {
+      "date": "2026-07-29",
+      "streamflow": 1010.0
+    },
+    {
+      "date": "2026-07-30",
+      "streamflow": 1070.0
+    },
+    {
+      "date": "2026-07-31",
+      "streamflow": 952.0
+    },
+    {
+      "date": "2026-08-01",
+      "streamflow": 887.0
+    },
+    {
+      "date": "2026-08-02",
+      "streamflow": 870.0
+    },
+    {
+      "date": "2026-08-03",
+      "streamflow": 935.0
+    },
+    {
+      "date": "2026-08-04",
+      "streamflow": 963.0
+    },
+    {
+      "date": "2026-08-05",
+      "streamflow": 968.0
+    },
+    {
+      "date": "2026-08-06",
+      "streamflow": 934.0
+    },
+    {
+      "date": "2026-08-07",
+      "streamflow": 917.0
+    },
+    {
+      "date": "2026-08-08",
+      "streamflow": 836.0
+    },
+    {
+      "date": "2026-08-09",
+      "streamflow": 772.0
+    },
+    {
+      "date": "2026-08-10",
+      "streamflow": 692.0
+    },
+    {
+      "date": "2026-08-11",
+      "streamflow": 645.0
+    },
+    {
+      "date": "2026-08-12",
+      "streamflow": 602.0
+    },
+    {
+      "date": "2026-08-13",
+      "streamflow": 622.0
+    },
+    {
+      "date": "2026-08-14",
+      "streamflow": 725.0
+    },
+    {
+      "date": "2026-08-15",
+      "streamflow": 756.0
+    },
+    {
+      "date": "2026-08-16",
+      "streamflow": 771.0
+    },
+    {
+      "date": "2026-08-17",
+      "streamflow": 708.0
+    },
+    {
+      "date": "2026-08-18",
+      "streamflow": 713.0
+    },
+    {
+      "date": "2026-08-19",
+      "streamflow": 742.0
+    },
+    {
+      "date": "2026-08-20",
+      "streamflow": 709.0
+    },
+    {
+      "date": "2026-08-21",
+      "streamflow": 697.0
+    },
+    {
+      "date": "2026-08-22",
+      "streamflow": 715.0
+    },
+    {
+      "date": "2026-08-23",
+      "streamflow": 739.0
+    }
+  ]
+}

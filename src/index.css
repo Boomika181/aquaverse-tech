@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* AquaVerse Cinematic Dark Ocean & Electric Blue Tokens */
+  --color-pure-black: #000000;
+  --color-near-black: #03070B;
+  --color-deep-navy: #06111C;
+  --color-ocean-dark: #08243A;
+  --color-electric-blue: #168CFF;
+  --color-cyan-glow: #42D9FF;
+  --color-ice-white: #EAF6FF;
+  --color-[#526A7E]: #526A7E;
+}
+
+@layer base {
+  body {
+    background-color: #000000;
+    color: #EAF6FF;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+}
+
+/* Background treatments inspired by reference image */
+.bg-cinematic-space {
+  background-color: #000000;
+  background-image: 
+    radial-gradient(ellipse at 50% 30%, rgba(22, 140, 255, 0.12) 0%, rgba(6, 17, 28, 0.6) 40%, #000000 80%),
+    radial-gradient(circle at 50% 0%, rgba(66, 217, 255, 0.08) 0%, transparent 60%);
+}
+
+/* Floating Lightweight Dark Interface Panel */
+.glass-floating-panel {
+  background-color: rgba(3, 10, 18, 0.72);
+  border: 1px solid rgba(22, 140, 255, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+}
+
+.glass-floating-panel:hover {
+  border-color: rgba(66, 217, 255, 0.45);
+}
+
+/* Slow Cinematic Parallax & Scale Animation for Water Background Image */
+@keyframes slowBgPan {
+  0%, 100% { transform: scale(1.05) translate(0%, 0%); }
+  50% { transform: scale(1.09) translate(-1.2%, -0.8%); }
+}
+
+@keyframes waterLightRay {
+  0% { transform: translateX(-150%) skewX(-25deg); opacity: 0; }
+  30% { opacity: 0.18; }
+  60% { opacity: 0.22; }
+  100% { transform: translateX(250%) skewX(-25deg); opacity: 0; }
+}
+
+@keyframes markerGlowPulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+/* Subtle Internal Telemetry Network Node & Dash Animations */
+@keyframes telemetryDash {
+  0% { stroke-dashoffset: 40; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes nodeGlowPulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.35); opacity: 1; filter: drop-shadow(0 0 5px #42D9FF); }
+}
+
+.animate-slow-bg {
+  animation: slowBgPan 25s ease-in-out infinite;
+}
+
+.animate-water-light {
+  animation: waterLightRay 12s ease-in-out infinite;
+}
+
+.animate-marker-pulse {
+  animation: markerGlowPulse 3s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin 35s linear infinite;
+}
+
+.animate-telemetry-dash {
+  animation: telemetryDash 10s linear infinite;
+}
+
+.animate-node-pulse {
+  animation: nodeGlowPulse 3.5s ease-in-out infinite;
+}
+
+/* Custom Leaflet Map styling for Dark Command Center GIS */
+.leaflet-container {
+  font-family: var(--font-sans) !important;
+  background-color: #03070B !important;
+  border-radius: 1rem;
+}
+
+/* Reduced Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-slow-bg,
+  .animate-water-light,
+  .animate-marker-pulse,
+  .animate-spin-slow,
+  .animate-telemetry-dash,
+  .animate-node-pulse {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #08243A;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #168CFF;
+}
