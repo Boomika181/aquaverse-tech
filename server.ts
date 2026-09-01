@@ -1,6 +1,5 @@
 import express from 'express';
 import path from 'path';
-import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import { initializeApp, getApps } from 'firebase-admin/app';
@@ -16,6 +15,15 @@ const app = express();
 const PORT = Number(process.env.PORT) || 3001;
 
 app.use(express.json());
+
+// Serverless URL rewrite compatibility middleware
+app.use((req, res, next) => {
+  if (!req.url.startsWith('/api') && !req.url.startsWith('/assets') && !req.url.includes('.')) {
+    const originalUrl = req.url;
+    req.url = '/api' + (originalUrl.startsWith('/') ? originalUrl : '/' + originalUrl);
+  }
+  next();
+});
 
 // Initialize Gemini client (lazy initialization, graceful error handling)
 let aiClient: GoogleGenAI | null = null;
@@ -605,6 +613,7 @@ ${issues.length > 0
 // Start server
 async function startServer() {
   if (process.env.NODE_ENV !== 'production') {
+    const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',
