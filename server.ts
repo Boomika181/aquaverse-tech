@@ -48,14 +48,20 @@ function getAiClient(): GoogleGenAI | null {
   return aiClient;
 }
 
-// Initialize Firebase Admin SDK if not already initialized
-if (getApps().length === 0) {
-  try {
-    initializeApp();
-  } catch (err) {
-    console.warn('Firebase Admin SDK initialization note:', err);
+// Initialize Firebase Admin SDK safely (with projectId fallback to prevent hanging on cloud metadata service)
+function getFirebaseAdminApp() {
+  if (getApps().length === 0) {
+    try {
+      const projectId = process.env.VITE_FIREBASE_PROJECT_ID || process.env.FIREBASE_PROJECT_ID || 'ancient-ascent-65jvd';
+      initializeApp({ projectId });
+    } catch (err) {
+      console.warn('Firebase Admin SDK initialization note:', err);
+    }
   }
+  return getApps()[0] || null;
 }
+
+getFirebaseAdminApp();
 
 // Authoritative Admin Authorization Security Middleware (Strict Firebase ID Token Verification)
 const requireAdminAuth = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
