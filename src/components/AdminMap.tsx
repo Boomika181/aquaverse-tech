@@ -21,10 +21,9 @@ export default function AdminMap({ reports, predictions, stations = [] }: AdminM
       // Default center: Bangalore area
       const map = L.map(mapContainerRef.current).setView([12.9716, 77.5946], 11);
 
-      // CartoDB Dark All tiles
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
+      // Public OpenStreetMap tiles (API-key-free, production-safe)
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 19
       }).addTo(map);
 
